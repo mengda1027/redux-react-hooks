@@ -1,4 +1,5 @@
 export function AmountField({ amount, onChange }) {
+  console.log(amount);
   return (
     <form className="ExchangeRate-form">
       <input

@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { RateTable } from "./RateTable";
+import { useSelector } from "react-redux";
 import { CurrencyCodePicker } from "./CurrencyCodePicker";
 import { AmountField } from "./AmountField";
 import { getExchangeRates } from "../api";
@@ -7,14 +8,18 @@ import { getExchangeRates } from "../api";
 const supportedCurrencies = ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"];
 
 export function ExchangeRate() {
-  const [amount, setAmount] = useState("1.50");
-  const [currencyCode, setCurrencyCode] = useState("USD");
+  const amount = useSelector((state) => state.rate.amount);
+  const currencyCode = useSelector((state) => state.rate.currencyCode);
+
+  const setAmount = () => {};
+  const setCurrencyCode = () => {};
+
   const [currencyData, setCurrencyData] = useState({ USD: 1.0 });
 
   // fetch the exchange rates each time currency code changes
   useEffect(() => {
     getExchangeRates(currencyCode, supportedCurrencies).then((rates) => {
-      setCurrencyData(rates);
+      setCurrencyCode(rates);
     });
   }, [currencyCode]);
 
