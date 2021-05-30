@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { amountChanged } from '../reducers/RateReducer';
 
 export function AmountField({ amount }) {
   const dispatch = useDispatch();
   function onChange(e) {
-    dispatch({ type: "rate/amountChanged", payload: e.target.value });
+    dispatch(amountChanged(e.target.value));
   }
   return (
     <form className="ExchangeRate-form">

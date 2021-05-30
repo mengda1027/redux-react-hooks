@@ -17,3 +17,14 @@ export function rateReducer(state = initialState, action) {
 // Selector
 export const getAmount = (state) => state.rate.amount;
 export const getCurrencyCode = (state) => state.rate.currencyCode;
+
+// Action Creator
+export const amountChanged = (amount) => ({
+  type: 'rate/amountChanged',
+  payload: amount
+});
+
+export const updateCurrencyCode = (currencyCode) => ({
+  type: 'rate/currencyCodeUpdated',
+  payload: currencyCode
+});
