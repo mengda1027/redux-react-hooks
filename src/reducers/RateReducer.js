@@ -1,14 +1,25 @@
+import { getExchangeRates } from '../api';
+export const supportedCurrencies = ['USD', 'EUR', 'JPY', 'CAD', 'GBP', 'MXN'];
+
 const initialState = {
   amount: '12.99',
-  currencyCode: 'EUR'
+  currencyCode: 'EUR',
+  currencyData: { USD: 1.0 }
 };
+
+// action types
+export const AMOUNT_CHANGED = 'rate/amountChanged';
+export const CURRENCY_CODE_CHANGED = 'rate/currency_code_changed';
+export const RATES_RECEIVED = 'rate/rates_received';
 
 export function rateReducer(state = initialState, action) {
   switch (action.type) {
-    case 'rate/amountChanged':
+    case AMOUNT_CHANGED:
       return { ...state, amount: action.payload };
-    case 'rate/currencyCodeUpdated':
+    case CURRENCY_CODE_CHANGED:
       return { ...state, currencyCode: action.payload };
+    case RATES_RECEIVED:
+      return { ...state, currencyData: action.payload };
     default:
       return state;
   }
@@ -17,14 +28,28 @@ export function rateReducer(state = initialState, action) {
 // Selector
 export const getAmount = (state) => state.rate.amount;
 export const getCurrencyCode = (state) => state.rate.currencyCode;
+export const getCurrencyData = (state) => state.rate.currencyData;
 
 // Action Creator
 export const amountChanged = (amount) => ({
-  type: 'rate/amountChanged',
+  type: AMOUNT_CHANGED,
   payload: amount
 });
 
-export const updateCurrencyCode = (currencyCode) => ({
-  type: 'rate/currencyCodeUpdated',
-  payload: currencyCode
-});
+// 使用 redux-thunk
+export function changeCurrenyCode(currencyCode) {
+  return function changeCurrenyDataThunk(dispatch) {
+    // 首先修改当前 currency code
+    dispatch({
+      type: CURRENCY_CODE_CHANGED,
+      payload: currencyCode
+    });
+    // 异步修改当前 currency data
+    getExchangeRates(currencyCode, supportedCurrencies).then((rates) => {
+      dispatch({
+        type: RATES_RECEIVED,
+        payload: rates
+      });
+    });
+  };
+}
