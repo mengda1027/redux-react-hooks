@@ -53,3 +53,10 @@ export function changeCurrenyCode(currencyCode) {
     });
   };
 }
+
+// 异步初始化 rate 初始状态 （在 react render 前执行）
+export function getInitalRates(dispatch, getState) {
+  const state = getState();
+  const currencyCode = getCurrencyCode(state);
+  dispatch(changeCurrenyCode(currencyCode));
+}
