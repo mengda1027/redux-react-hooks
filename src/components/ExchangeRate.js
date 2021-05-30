@@ -1,15 +1,16 @@
-import { useState, useEffect } from "react";
-import { RateTable } from "./RateTable";
-import { useSelector } from "react-redux";
-import { CurrencyCodePicker } from "./CurrencyCodePicker";
-import { AmountField } from "./AmountField";
-import { getExchangeRates } from "../api";
+import { useState, useEffect } from 'react';
+import { RateTable } from './RateTable';
+import { useSelector } from 'react-redux';
+import { CurrencyCodePicker } from './CurrencyCodePicker';
+import { AmountField } from './AmountField';
+import { getExchangeRates } from '../api';
+import { getAmount, getCurrencyCode } from '../reducers/RateReducer';
 
-const supportedCurrencies = ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"];
+const supportedCurrencies = ['USD', 'EUR', 'JPY', 'CAD', 'GBP', 'MXN'];
 
 export function ExchangeRate() {
-  const amount = useSelector((state) => state.rate.amount);
-  const currencyCode = useSelector((state) => state.rate.currencyCode);
+  const amount = useSelector(getAmount);
+  const currencyCode = useSelector(getCurrencyCode);
 
   const [currencyData, setCurrencyData] = useState({ USD: 1.0 });
 
@@ -24,7 +25,7 @@ export function ExchangeRate() {
     <>
       <section>
         <h1 className="ExchangeRate-header">
-          Exchange Rates{" "}
+          Exchange Rates{' '}
           <CurrencyCodePicker
             supportedCurrencies={supportedCurrencies}
             currencyCode={currencyCode}

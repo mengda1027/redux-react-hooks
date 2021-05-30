@@ -9,9 +9,9 @@ export function RateTable({ currencyData, amount }) {
             <tr key={code}>
               <td>{code}</td>
               <td>
-                {exchangeAmount.toLocaleString("en", {
-                  style: "currency",
-                  currency: code,
+                {exchangeAmount.toLocaleString('en', {
+                  style: 'currency',
+                  currency: code
                 })}
               </td>
             </tr>
