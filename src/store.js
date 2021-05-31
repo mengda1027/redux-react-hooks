@@ -1,8 +1,8 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
-import { rateReducer } from "./reducers/RateReducer";
-import { userReducer } from "./reducers/UserReducer";
+import { rateReducer } from './reducers/RateReducer';
+import { userReducer } from './reducers/UserReducer';
 
 const rootReducer = combineReducers({
   rate: rateReducer,

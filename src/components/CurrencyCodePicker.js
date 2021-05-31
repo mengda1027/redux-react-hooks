@@ -1,8 +1,14 @@
-import { useDispatch } from 'react-redux';
-import { changeCurrenyCode } from '../reducers/RateReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  changeCurrenyCode,
+  getCurrencyCode,
+  getSupportedCurrencies
+} from '../reducers/RateReducer';
 
-export function CurrencyCodePicker({ supportedCurrencies, currencyCode }) {
+export function CurrencyCodePicker() {
   const dispatch = useDispatch();
+  const currencyCode = useSelector(getCurrencyCode);
+  const supportedCurrencies = useSelector(getSupportedCurrencies);
   function onChange(e) {
     dispatch(changeCurrenyCode(e.target.value));
   }
